@@ -13,5 +13,5 @@ In order to use this application, you have 2 options:
 2. Download the CopyFile.exe file. Using this way, you don't need to have a C compiler on your computer. Just open a command prompt and follow the same pattern described at point 1
       e.g.: CopyFile C:/Users/Me/Desktop/Folder C:/Users/Me/Desktop/OtherFolder ex
       
-  ![LogExample](C:\Users\Radu\Desktop\LogPhoto.jpg?raw=true "Title")
+  ![LogExample](https://github.com/raduduhotaru/CopyFiles/blob/master/Photos/LogPhoto.png)
   
