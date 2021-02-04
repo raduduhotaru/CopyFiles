@@ -3,6 +3,7 @@
 #include <sys/types.h>
 #include <dirent.h>
 #include <time.h>
+#include<stdlib.h>
 
 int counter = 0;
 
@@ -13,10 +14,13 @@ void LogFileHandle(char *path,char *text)
     FILE *f;
     char logPath[128];
 
-    sprintf(logPath,"%s\\LogFile.log",path); //If you use it on Linux - change "\\" with "/" 
+    sprintf(logPath,"%sLogFile.log",path); //If you use it on Linux - change "\\" with "/" 
     f = fopen(logPath,"a+");
     if(f == NULL)
-        printf("\nFailed to create the LOG file!\n");
+    {
+        printf("\nFailed to create the LOG file! Check the output path! \n");
+        exit(0);
+    }
     
     fprintf(f,text);
 }
@@ -30,11 +34,19 @@ void CopyMatchedFiles(char *sourcePath,char *destinationPath,char *logPath)
 
     inputFile = fopen(sourcePath,"r");
     outputFile = fopen(destinationPath,"w");
+
     if(outputFile==NULL)
     {
         printf("\nInvalid destination path!\n");
         fclose(outputFile);
-        return;
+        exit(0);
+    }
+
+    if(inputFile==NULL)
+    {
+        printf("\nInvalid source path!\n");
+        fclose(inputFile);
+        exit(0);
     }
     
     while(1)
@@ -78,8 +90,8 @@ void ParseFolders(char *inputFolderPath,char *outputFolderPath,char *pattern)
             //Check for pattern match
             if((strstr(dp->d_name,pattern) != NULL)) 
             {
-                sprintf(pathToCopyFrom,"%s\\%s",inputFolderPath,dp->d_name); //If you use it on Linux - delete "\\" 
-                sprintf(pathToCopyIn,"%s\\%s",outputFolderPath,dp->d_name); //If you use it on Linux - delete "\\" 
+                sprintf(pathToCopyFrom,"%s%s",inputFolderPath,dp->d_name); //If you use it on Linux - delete "\\" 
+                sprintf(pathToCopyIn,"%s%s",outputFolderPath,dp->d_name); //If you use it on Linux - delete "\\" 
                 counter++;
                 CopyMatchedFiles(pathToCopyFrom,pathToCopyIn,outputFolderPath);
             }
