@@ -6,12 +6,14 @@
 
 int counter = 0;
 
+/*Function to create the LOG file at the user specificated output.
+  This function will create the file or if it already exists it will append to it*/
 void LogFileHandle(char *path,char *text)
 {
     FILE *f;
     char logPath[128];
 
-    sprintf(logPath,"%s\\LogFile.log",path);
+    sprintf(logPath,"%s\\LogFile.log",path); //If you use it on Linux - change "\\" with "/" 
     f = fopen(logPath,"a+");
     if(f == NULL)
         printf("\nFailed to create the LOG file!\n");
@@ -19,6 +21,8 @@ void LogFileHandle(char *path,char *text)
     fprintf(f,text);
 }
 
+/*This function open the input file in read mode in order to take its data.
+  The output path will be opened in write mode in order to copy the data inside the new file*/
 void CopyMatchedFiles(char *sourcePath,char *destinationPath,char *logPath)
 {
     FILE *inputFile, *outputFile;
@@ -30,6 +34,7 @@ void CopyMatchedFiles(char *sourcePath,char *destinationPath,char *logPath)
     {
         printf("\nInvalid destination path!\n");
         fclose(outputFile);
+        return;
     }
     
     while(1)
@@ -47,6 +52,8 @@ void CopyMatchedFiles(char *sourcePath,char *destinationPath,char *logPath)
     LogFileHandle(logPath,text);
 }
 
+/*This function recursively parse the input path folder structure.
+  It will check every file inside every folder in order to find in the file name the user pattern (argv[3])*/
 void ParseFolders(char *inputFolderPath,char *outputFolderPath,char *pattern)
 {
     char path[1024];
@@ -71,14 +78,14 @@ void ParseFolders(char *inputFolderPath,char *outputFolderPath,char *pattern)
             //Check for pattern match
             if((strstr(dp->d_name,pattern) != NULL)) 
             {
-                sprintf(pathToCopyFrom,"%s\\%s",inputFolderPath,dp->d_name);
-                sprintf(pathToCopyIn,"%s\\%s",outputFolderPath,dp->d_name);
+                sprintf(pathToCopyFrom,"%s\\%s",inputFolderPath,dp->d_name); //If you use it on Linux - delete "\\" 
+                sprintf(pathToCopyIn,"%s\\%s",outputFolderPath,dp->d_name); //If you use it on Linux - delete "\\" 
                 counter++;
                 CopyMatchedFiles(pathToCopyFrom,pathToCopyIn,outputFolderPath);
             }
             // Construct new path from our base path
             strcpy(path, inputFolderPath);
-            strcat(path, "\\");
+            strcat(path, "\\"); //If you use it on Linux - change "\\" with "/"
             strcat(path, dp->d_name);
             
             ParseFolders(path,outputFolderPath,pattern);
@@ -95,7 +102,7 @@ int main(int argc,char *argv[])
         return 1;
     }
 
-    time_t t = time(NULL);
+    time_t t = time(NULL); 
     struct tm tm = *localtime(&t);
     char text[512];
 
@@ -107,7 +114,7 @@ int main(int argc,char *argv[])
 
     ParseFolders(argv[1],argv[2],argv[3]);
 
-    if(counter == 0)
+    if(counter == 0) //counter incremented in ParseFolder function if there is any match between the pattern and the file name
     {
         sprintf(text,"! There are no files with \" %s \" pattern in this folder structure !\n",argv[3]);
         LogFileHandle(argv[2],text);
@@ -118,8 +125,10 @@ int main(int argc,char *argv[])
     {
         sprintf(text,"\n\n--> %d files succesfuly copied! <--\n",counter);
         LogFileHandle(argv[2],text);
+        tm = *localtime(&t);
         sprintf(text,"Ended at: %02d:%02d:%02d\n", tm.tm_hour, tm.tm_min, tm.tm_sec);
         LogFileHandle(argv[2],text);
+        printf("\n Program ended sucesfully! Check the LOG file -located in the output folder- for more details!\n");
     }
 
     return 0;
