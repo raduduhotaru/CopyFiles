@@ -135,12 +135,12 @@ int main(int argc,char *argv[])
     }
     else
     {
-        sprintf(text,"\n\n--> %d files succesfuly copied! <--\n",counter);
+        sprintf(text,"\n\n--> %d files successfully copied! <--\n",counter);
         LogFileHandle(argv[2],text);
         tm = *localtime(&t);
         sprintf(text,"Ended at: %02d:%02d:%02d\n", tm.tm_hour, tm.tm_min, tm.tm_sec);
         LogFileHandle(argv[2],text);
-        printf("\n Program ended sucesfully! Check the LOG file -located in the output folder- for more details!\n");
+        printf("\n Program ended sucessfully! Check the LOG file -located in the output folder- for more details!\n");
     }
 
     return 0;
