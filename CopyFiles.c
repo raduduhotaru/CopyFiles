@@ -14,7 +14,7 @@ void LogFileHandle(char *path,char *text)
     FILE *f;
     char logPath[128];
 
-    sprintf(logPath,"%sLogFile.log",path); //If you use it on Linux - change "\\" with "/" 
+    sprintf(logPath,"%sLogFile.log",path);  
     f = fopen(logPath,"a+");
     if(f == NULL)
     {
@@ -90,14 +90,14 @@ void ParseFolders(char *inputFolderPath,char *outputFolderPath,char *pattern)
             //Check for pattern match
             if((strstr(dp->d_name,pattern) != NULL)) 
             {
-                sprintf(pathToCopyFrom,"%s%s",inputFolderPath,dp->d_name); //If you use it on Linux - delete "\\" 
-                sprintf(pathToCopyIn,"%s%s",outputFolderPath,dp->d_name); //If you use it on Linux - delete "\\" 
+                sprintf(pathToCopyFrom,"%s%s",inputFolderPath,dp->d_name); 
+                sprintf(pathToCopyIn,"%s%s",outputFolderPath,dp->d_name);  
                 counter++;
                 CopyMatchedFiles(pathToCopyFrom,pathToCopyIn,outputFolderPath);
             }
             // Construct new path from our base path
             strcpy(path, inputFolderPath);
-            strcat(path, "\\"); //If you use it on Linux - change "\\" with "/"
+            strcat(path, "\\"); 
             strcat(path, dp->d_name);
             
             ParseFolders(path,outputFolderPath,pattern);
