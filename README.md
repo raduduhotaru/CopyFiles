@@ -20,4 +20,7 @@ In order to use this application, you have 2 options:
    ![Compile on Windows](https://github.com/raduduhotaru/CopyFiles/blob/master/Photos/WindowsCMD.PNG)
       Windows CMD example:
    ![Compile on Linux](https://github.com/raduduhotaru/CopyFiles/blob/master/Photos/LinuxCMD.PNG)
-  
+   
+   As you can see, it is very important to write the paths correctly in order to work, otherwise it will crash, and you will be notified about it on the command prompt GUI (dont't forget to put the "/" to the end of the path)
+
+
