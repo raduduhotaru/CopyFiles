@@ -4,19 +4,22 @@
 In order to use this application, you have 2 options:
 
 1. Compile the code using a C compiler (e.g: https://sourceforge.net/projects/mingw-w64/) 
-  - in order to compile it, write "gcc TestApp.c"
+  - in order to compile it, change the directory using "cd" to the directory where the code is, and write "gcc TestApp.c"
   - there will be a generated "a.exe" file that you need to execute
   - in order to use the "a.exe" file you have to write a command line like this: a  \<input_folder_path\>  \<output_folder_path\>  \<pattern\> (4 parameters)
       e.g.: a C:/Users/Me/Desktop/Folder/ C:/Users/Me/Desktop/OtherFolder/ ex
-   - if you use Linux, in order to use the "a.out" file you have to write a command line like this: ./a.out  \<input_folder_path\>  \<output_folder_path\>  \<pattern\> (4 parameters)
-      e.g.: ./a.out /home/Me/Desktop/Folder/ /home/Me/Desktop/OtherFolder/ ex
   - Following the given example, the application will search in C:/Users/Me/Desktop/Folder/ and in its sub-directories all the files that contain "ex" and will copy them in     C:/Users/Me/Desktop/OtherFolder/
+  
+  IF you use Linux:
+  - change the directory using "cd" to the directory where the code is, and write in terminal: "gcc Copyfiles.c"
+  - there will be an "a.out" file generated
+  - in order to use the program you have to write again in terminal: ./a.out \<input folder path>\ \<output folder path>\ \<pattern>\ (4 parameters)
+    e.g.: ./a.out /home/Me/Desktop/Folder/ /home/Me/Desktop/OtherFolder/ ex
+  - Following the given example, the application will search in /home/Me/Desktop/Folder/ and in its sub-directories all the files that contain "ex" and will copy them in     /home/Me/Desktop/OtherFolder/
 
 2. Download the CopyFile.exe file. Using this way, you don't need to have a C compiler on your computer. Just open a command prompt and follow the same pattern described at point 1
       e.g.: CopyFile C:/Users/Me/Desktop/Folder/ C:/Users/Me/Desktop/OtherFolder/ ex
-      
-   If you download it on Linux you have to write "./CopyFile.out" instead of "CopyFile"
-      e.g.: ./CopyFile.out /home/Me/Desktop/Folder/ /home/Me/Desktop/OtherFolder/ ex
+  ! This action can't be done in Linux 
       
       
       LOG file content example:
