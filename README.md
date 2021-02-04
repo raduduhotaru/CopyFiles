@@ -16,7 +16,8 @@ In order to use this application, you have 2 options:
       
       LOG file content example:
   ![LogExample](https://github.com/raduduhotaru/CopyFiles/blob/master/Photos/LogPhoto.png)
-  
       Windows CMD example:
    ![Compile on Windows](https://github.com/raduduhotaru/CopyFiles/blob/master/Photos/WindowsCMD.PNG)
+      Windows CMD example:
+   ![Compile on Linux](https://github.com/raduduhotaru/CopyFiles/blob/master/Photos/LinuxCMD.PNG)
   
