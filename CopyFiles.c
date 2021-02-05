@@ -14,8 +14,9 @@ void LogFileHandle(char *path,char *text)
     FILE *f;
     char logPath[128];
 
-    sprintf(logPath,"%sLogFile.log",path);  
-    f = fopen(logPath,"a+");
+    sprintf(logPath,"%sLogFile.log",path); //set LOG file name by default
+    f = fopen(logPath,"a+"); //create, or if it exsists - append
+
     if(f == NULL)
     {
         printf("\nFailed to create the LOG file! Check the output path! \n");
@@ -31,6 +32,7 @@ void CopyMatchedFiles(char *sourcePath,char *destinationPath,char *logPath)
 {
     FILE *inputFile, *outputFile;
     int data;
+    char text[512];
 
     inputFile = fopen(sourcePath,"rb");
     outputFile = fopen(destinationPath,"wb");
@@ -59,7 +61,6 @@ void CopyMatchedFiles(char *sourcePath,char *destinationPath,char *logPath)
     fclose(inputFile);
     fclose(outputFile);
 
-    char text[512];
     sprintf(text,"\n%s -- succesfully copied to --> %s\n",sourcePath,destinationPath);
     LogFileHandle(logPath,text);
 }
@@ -137,13 +138,14 @@ int main(int argc,char *argv[])
         LogFileHandle(argv[2],text);
         sprintf(text,"Ended at: %02d:%02d:%02d\n", tm.tm_hour, tm.tm_min, tm.tm_sec);
         LogFileHandle(argv[2],text);
+        printf("\n Program ended sucessfully! Check the LOG file -located in the output folder- for more details!\n");
     }
     else
     {
         sprintf(text,"\n\n--> %d files successfully copied! <--\n",counter);
         LogFileHandle(argv[2],text);
-        tm = *localtime(&t);
-        sprintf(text,"Ended at: %02d:%02d:%02d\n", tm.tm_hour, tm.tm_min, tm.tm_sec);
+        struct tm tmEnd = *localtime(&t);
+        sprintf(text,"Ended at: %02d:%02d:%02d\n", tmEnd.tm_hour, tmEnd.tm_min, tmEnd.tm_sec);
         LogFileHandle(argv[2],text);
         printf("\n Program ended sucessfully! Check the LOG file -located in the output folder- for more details!\n");
     }
