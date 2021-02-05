@@ -32,8 +32,8 @@ void CopyMatchedFiles(char *sourcePath,char *destinationPath,char *logPath)
     FILE *inputFile, *outputFile;
     int data;
 
-    inputFile = fopen(sourcePath,"r");
-    outputFile = fopen(destinationPath,"w");
+    inputFile = fopen(sourcePath,"rb");
+    outputFile = fopen(destinationPath,"wb");
 
     if(outputFile==NULL)
     {
@@ -90,16 +90,16 @@ void ParseFolders(char *inputFolderPath,char *outputFolderPath,char *pattern)
             //Check for pattern match
             if((strstr(dp->d_name,pattern) != NULL)) 
             {
-                sprintf(pathToCopyFrom,"%s%s",inputFolderPath,dp->d_name); 
+                sprintf(pathToCopyFrom,"%s\\%s",inputFolderPath,dp->d_name); 
                 sprintf(pathToCopyIn,"%s%s",outputFolderPath,dp->d_name);  
                 counter++;
+                printf("%s\n",pathToCopyFrom);
                 CopyMatchedFiles(pathToCopyFrom,pathToCopyIn,outputFolderPath);
             }
             // Construct new path from our base path
             strcpy(path, inputFolderPath);
             strcat(path, "\\"); 
             strcat(path, dp->d_name);
-            
             ParseFolders(path,outputFolderPath,pattern);
         }
     }
@@ -121,7 +121,7 @@ int main(int argc,char *argv[])
     sprintf(text,"Date: %d-%02d-%02d \nTime: %02d:%02d:%02d\n", tm.tm_mday, tm.tm_mon + 1, tm.tm_year + 1900, tm.tm_hour, tm.tm_min, tm.tm_sec);
     LogFileHandle(argv[2],"-- Program started --\n");
     LogFileHandle(argv[2],text);
-    sprintf(text,"* started to search for \" %s \" in %s folder structure\n",argv[3],argv[2]);
+    sprintf(text,"* started to search for \" %s \" in %s folder structure\n",argv[3],argv[1]);
     LogFileHandle(argv[2],text);
 
     ParseFolders(argv[1],argv[2],argv[3]);
