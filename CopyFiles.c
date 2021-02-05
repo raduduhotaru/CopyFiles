@@ -74,6 +74,7 @@ void ParseFolders(char *inputFolderPath,char *outputFolderPath,char *pattern)
 
     struct dirent *dp;
     DIR *dir = opendir(inputFolderPath);
+    DIR *check;
 
     /* If there is a FILE - not a DIR given at the start of the program,
      the program will return and close. If there is a FILE - not a DIR given 
@@ -92,6 +93,12 @@ void ParseFolders(char *inputFolderPath,char *outputFolderPath,char *pattern)
             {
                 sprintf(pathToCopyFrom,"%s\\%s",inputFolderPath,dp->d_name); 
                 sprintf(pathToCopyIn,"%s%s",outputFolderPath,dp->d_name);  
+                check = opendir(pathToCopyFrom);
+                if(check)
+                {
+                    printf("%s\n",pathToCopyFrom);
+                    return;
+                }
                 counter++;
                 printf("%s\n",pathToCopyFrom);
                 CopyMatchedFiles(pathToCopyFrom,pathToCopyIn,outputFolderPath);
