@@ -91,21 +91,19 @@ void ParseFolders(char *inputFolderPath,char *outputFolderPath,char *pattern)
             //Check for pattern match
             if((strstr(dp->d_name,pattern) != NULL)) 
             {
-                sprintf(pathToCopyFrom,"%s\\%s",inputFolderPath,dp->d_name); 
+                sprintf(pathToCopyFrom,"%s\\%s",inputFolderPath,dp->d_name); //if you use Linux, replace "\\" with "/"
                 sprintf(pathToCopyIn,"%s%s",outputFolderPath,dp->d_name);  
                 check = opendir(pathToCopyFrom);
-                if(check)
+                if(check) //safety - in order not to copy an entire directory
                 {
-                    printf("%s\n",pathToCopyFrom);
                     return;
                 }
                 counter++;
-                printf("%s\n",pathToCopyFrom);
                 CopyMatchedFiles(pathToCopyFrom,pathToCopyIn,outputFolderPath);
             }
             // Construct new path from our base path
             strcpy(path, inputFolderPath);
-            strcat(path, "\\"); 
+            strcat(path, "\\"); //if you use Linux, replace "\\" with "/"
             strcat(path, dp->d_name);
             ParseFolders(path,outputFolderPath,pattern);
         }
